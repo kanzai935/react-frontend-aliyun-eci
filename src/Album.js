@@ -62,8 +62,6 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-const galleryImageList = [];
-
 export default function Album() {
     const classes = useStyles();
 
@@ -72,7 +70,7 @@ export default function Album() {
             <CssBaseline/>
             <AppBar position="relative">
                 <Toolbar>
-                    <img src={Icon} height="50" background-color="#3f51b5"/>
+                    <img src={Icon} height="50" background-color="#3f51b5" alt="AliEaters Icon"/>
                     <Typography variant="h6" color="inherit" noWrap>
                         AliEaters's Album
                     </Typography>
@@ -87,17 +85,8 @@ export default function Album() {
                         </Typography>
                         <Grid container spacing={2} justify="center">
                             <Grid item>
-                                <ImageUpload cardName="Input Image" imageGallery={galleryImageList}/></Grid>
+                                <ImageUpload cardName="Input Image"/></Grid>
                         </Grid>
-                        <div className={classes.heroButtons}>
-                            <Grid container spacing={2} justify="center">
-                                <Grid item>
-                                    <Button variant="contained" color="primary">
-                                        アップロード
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </div>
                     </Container>
                 </div>
                 <Container className={classes.cardGrid} maxWidth="md">

@@ -7,19 +7,15 @@ import CardContent from "@material-ui/core/CardContent";
 
 import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
 
 import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import CollectionsIcon from "@material-ui/icons/Collections";
 // Search
-import IconButton from "@material-ui/core/IconButton";
-import ReplayIcon from "@material-ui/icons/Replay";
 //Tabs
 import {withStyles} from "@material-ui/core/styles";
-
-const imageGallery = [];
+import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
 
 const styles = theme => ({
     root: {
@@ -68,15 +64,14 @@ const styles = theme => ({
 
 class ImageUploadCard extends React.Component {
     state = {
-        mainState: "initial", // initial, gallery, uploaded
+        mainState: "initial", // initial, uploaded
         imageUploaded: 0,
         selectedFile: null
     };
 
     handleUploadClick = event => {
-        console.log();
         var file = event.target.files[0];
-        const reader = new FileReader();
+        var reader = new FileReader();
         var url = reader.readAsDataURL(file);
 
         reader.onloadend = function (e) {
@@ -90,12 +85,6 @@ class ImageUploadCard extends React.Component {
             mainState: "uploaded",
             selectedFile: event.target.files[0],
             imageUploaded: 1
-        });
-    };
-
-    handleGalleryClick = event => {
-        this.setState({
-            mainState: "gallery"
         });
     };
 
@@ -120,72 +109,8 @@ class ImageUploadCard extends React.Component {
                                 <AddPhotoAlternateIcon/>
                             </Fab>
                         </label>
-                        <Fab className={classes.button} onClick={this.handleGalleryClick}>
-                            <CollectionsIcon/>
-                        </Fab>
                     </Grid>
                 </CardContent>
-            </React.Fragment>
-        );
-    }
-
-    handleSeachClose = event => {
-        this.setState({
-            mainState: "initial"
-        });
-    };
-
-    handleAvatarClick(value) {
-        var filename = value.url.substring(value.url.lastIndexOf("/") + 1);
-        console.log(filename);
-        this.setState({
-            mainState: "uploaded",
-            imageUploaded: true,
-            selectedFile: value.url,
-            fileReader: undefined,
-            filename: filename
-        });
-    }
-
-    renderGalleryState() {
-        const {classes} = this.props;
-        const listItems = this.props.imageGallery.map(url => (
-            <div
-                onClick={value => this.handleAvatarClick({url})}
-                style={{
-                    padding: "5px 5px 5px 5px",
-                    cursor: "pointer"
-                }}
-            >
-                <Avatar src={url}/>
-            </div>
-        ));
-
-        /*const listItems = this.props.imageGallery.map(url => (
-          <div
-            onClick={value => this.handleAvatarClick({ url })}
-            style={{
-              padding: "5px 5px 5px 5px",
-              cursor: "pointer"
-            }}
-          >
-            <Avatar shape="square" size={100} src={url} />
-          </div>
-        ));*/
-
-        return (
-            <React.Fragment>
-                <Grid>
-                    {listItems}
-                    <IconButton
-                        color="primary"
-                        className={classes.secondaryButton}
-                        aria-label="Close"
-                        onClick={this.handleSeachClose}
-                    >
-                        <ReplayIcon/>
-                    </IconButton>
-                </Grid>
             </React.Fragment>
         );
     }
@@ -200,8 +125,18 @@ class ImageUploadCard extends React.Component {
                         width="100%"
                         className={classes.media}
                         src={this.state.selectedFile}
+                        alt="uploaded image"
                     />
                 </CardActionArea>
+                <div className={classes.heroButtons}>
+                    <Grid container spacing={2} justify="center">
+                        <Grid item>
+                            <Button variant="contained" color="primary">
+                                アップロード
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </div>
             </React.Fragment>
         );
     }
@@ -222,10 +157,8 @@ class ImageUploadCard extends React.Component {
             <React.Fragment>
                 <div className={classes.root}>
                     <Card className={this.props.cardName}>
-                        {(this.state.mainState == "initial" && this.renderInitialState()) ||
-                        (this.state.mainState == "gallery" &&
-                            this.renderGalleryState()) ||
-                        (this.state.mainState == "uploaded" &&
+                        {(this.state.mainState === "initial" && this.renderInitialState()) ||
+                        (this.state.mainState === "uploaded" &&
                             this.renderUploadedState())}
                     </Card>
                 </div>
