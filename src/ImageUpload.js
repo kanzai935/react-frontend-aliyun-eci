@@ -152,7 +152,6 @@ class ImageUploadCard extends React.Component {
     }
 
     imageResetHandler = event => {
-        console.log("Click!");
         this.setState({
             mainState: "initial",
             selectedFile: null,
