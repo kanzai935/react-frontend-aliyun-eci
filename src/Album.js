@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
     },
     cardMedia: {
-        paddingTop: '56.25%', // 16:9
+        paddingTop: '56.25%',
     },
     cardContent: {
         flexGrow: 1,
@@ -77,7 +77,27 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const initialCards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+class Item {
+    constructor(title, url, tag, favorite){
+        this.title = title;
+        this.url = url;
+        this.tag = tag;
+        this.favorite = favorite;
+    }
+}
+
+const initialCards = [
+    new Item("one", "https://images.unsplash.com/photo-1595777480569-8e542c4f904c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80", "#dog", false),
+    new Item("two", "https://images.unsplash.com/photo-1542117991-205f1f56bd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cat", false),
+    new Item("three", "https://images.unsplash.com/photo-1505896202-4fe971e982fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#lion", false),
+    new Item("four", "https://images.unsplash.com/photo-1431057499046-ecd6e0f36ebe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cow", false),
+    new Item("five", "https://images.unsplash.com/photo-1429341565469-c014916dc816?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60", "#rabbit", false),
+    new Item("six", "https://images.unsplash.com/photo-1457599227512-c157ba17f37a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bear", false),
+    new Item("seven", "https://images.unsplash.com/photo-1460380547286-0da8aead0d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bird", false),
+    new Item("eight", "https://images.unsplash.com/photo-1526505262320-81542978f63b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#pig", false),
+    new Item("nine", "https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#fish", false),
+    new Item("ten", "https://images.unsplash.com/photo-1554900773-632f4c042da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#elephant", false)
+];
 
 export default function Album() {
     const classes = useStyles();
@@ -132,8 +152,8 @@ export default function Album() {
                                     <CardActionArea onClick={handleOpen}>
                                         <CardMedia
                                             className={classes.cardMedia}
-                                            image="https://source.unsplash.com/random"
-                                            title="Image title"
+                                            image={card.url}
+                                            title={card.title}
                                         />
                                     </CardActionArea>
                                     <Modal
@@ -148,17 +168,17 @@ export default function Album() {
                                     >
                                         <Fade in={open}>
                                             <img
-                                                src="https://source.unsplash.com/random"
-                                                alt="title"
+                                                src={card.url}
+                                                alt={card.title}
                                             />
                                         </Fade>
                                     </Modal>
                                     <CardContent className={classes.cardContent}>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            Heading
+                                            {card.title}
                                         </Typography>
                                         <Typography>
-                                            This is a media card. You can use this section to describe the content.
+                                            {card.tag}
                                         </Typography>
                                         <IconButton aria-label="add to favorites" onClick={handleFavorite}>
                                             {favorite ? <FavoriteIcon style={{color: pink[500]}}/> : <FavoriteIcon/>}
