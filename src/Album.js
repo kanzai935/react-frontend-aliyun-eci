@@ -77,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const initialCards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Album() {
     const classes = useStyles();
@@ -93,7 +93,13 @@ export default function Album() {
     const [favorite, setFavorite] = React.useState(false);
     const handleFavorite = () => {
         (favorite) ? setFavorite(false) : setFavorite(true);
-    }
+    };
+
+    const [cards, setCards] = React.useState(initialCards);
+    const handleRemove = (item) => {
+        const newCards = cards.filter((card) => card !== item);
+        setCards(newCards);
+    };
 
     return (
         <React.Fragment>
@@ -143,7 +149,7 @@ export default function Album() {
                                         <Fade in={open}>
                                             <img
                                                 src="https://source.unsplash.com/random"
-                                                alt="Image title"
+                                                alt="title"
                                             />
                                         </Fade>
                                     </Modal>
@@ -155,10 +161,9 @@ export default function Album() {
                                             This is a media card. You can use this section to describe the content.
                                         </Typography>
                                         <IconButton aria-label="add to favorites" onClick={handleFavorite}>
-                                            {favorite ? <FavoriteIcon style={{color: pink[500]}}/> :
-                                                <FavoriteIcon/>}
+                                            {favorite ? <FavoriteIcon style={{color: pink[500]}}/> : <FavoriteIcon/>}
                                         </IconButton>
-                                        <IconButton aria-label="delete image">
+                                        <IconButton aria-label="delete image" onClick={() => handleRemove(card)}>
                                             <DeleteIcon/>
                                         </IconButton>
                                     </CardContent>
@@ -179,4 +184,4 @@ export default function Album() {
             </footer>
         </React.Fragment>
     );
-}
+};
