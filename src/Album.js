@@ -19,6 +19,7 @@ import Fade from '@material-ui/core/Fade';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
+import pink from "@material-ui/core/colors/pink";
 
 function Copyright() {
     return (
@@ -80,6 +81,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Album() {
     const classes = useStyles();
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -87,6 +89,11 @@ export default function Album() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const [favorite, setFavorite] = React.useState(false);
+    const handleFavorite = () => {
+        (favorite) ? setFavorite(false) : setFavorite(true);
+    }
 
     return (
         <React.Fragment>
@@ -131,9 +138,7 @@ export default function Album() {
                                         onClose={handleClose}
                                         closeAfterTransition
                                         BackdropComponent={Backdrop}
-                                        BackdropProps={{
-                                            timeout: 500,
-                                        }}
+                                        BackdropProps={{timeout: 500}}
                                     >
                                         <Fade in={open}>
                                             <img
@@ -149,11 +154,12 @@ export default function Album() {
                                         <Typography>
                                             This is a media card. You can use this section to describe the content.
                                         </Typography>
-                                        <IconButton aria-label="add to favorites">
-                                            <FavoriteIcon/>
+                                        <IconButton aria-label="add to favorites" onClick={handleFavorite}>
+                                            {favorite ? <FavoriteIcon style={{color: pink[500]}}/> :
+                                                <FavoriteIcon/>}
                                         </IconButton>
                                         <IconButton aria-label="delete image">
-                                            <DeleteIcon />
+                                            <DeleteIcon/>
                                         </IconButton>
                                     </CardContent>
                                 </Card>
