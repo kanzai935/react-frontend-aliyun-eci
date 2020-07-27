@@ -19,7 +19,7 @@ import Fade from '@material-ui/core/Fade';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
-import pink from "@material-ui/core/colors/pink";
+import {blue, grey, pink} from "@material-ui/core/colors";
 
 function Copyright() {
     return (
@@ -77,53 +77,55 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const today = new Date();
+const year = today.getFullYear();
+const month = today.getMonth() + 1;
+const day = today.getDate();
+const hour = today.getHours();
+const minutes = today.getMinutes();
+const todayString = year + "/" + month + "/" + day + " " + hour + ":" + minutes
+
 class Item {
-    constructor(title, url, tag, favorite, zoomed) {
+    constructor(title, url, tag, favorite, zoomed, cratedDate) {
         this.title = title;
         this.url = url;
         this.tag = tag;
         this.favorite = favorite;
         this.zoomed = zoomed;
+        this.cratedDate = cratedDate;
     }
 }
 
 const initialCards = [
-    new Item("one", "https://images.unsplash.com/photo-1595777480569-8e542c4f904c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#dog", false, false),
-    new Item("two", "https://images.unsplash.com/photo-1542117991-205f1f56bd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cat", false, false),
-    new Item("three", "https://images.unsplash.com/photo-1505896202-4fe971e982fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#lion", false, false),
-    new Item("four", "https://images.unsplash.com/photo-1431057499046-ecd6e0f36ebe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cow", false, false),
-    new Item("five", "https://images.unsplash.com/photo-1429341565469-c014916dc816?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60", "#rabbit", false, false),
-    new Item("six", "https://images.unsplash.com/photo-1457599227512-c157ba17f37a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bear", false, false),
-    new Item("seven", "https://images.unsplash.com/photo-1460380547286-0da8aead0d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bird", false, false),
-    new Item("eight", "https://images.unsplash.com/photo-1526505262320-81542978f63b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#pig", false, false),
-    new Item("nine", "https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#fish", false, false),
-    new Item("ten", "https://images.unsplash.com/photo-1554900773-632f4c042da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#elephant", false, false)
+    new Item("one", "https://images.unsplash.com/photo-1595777480569-8e542c4f904c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#dog", false, false, todayString),
+    new Item("two", "https://images.unsplash.com/photo-1542117991-205f1f56bd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cat", false, false, todayString),
+    new Item("three", "https://images.unsplash.com/photo-1505896202-4fe971e982fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#lion", false, false, todayString),
+    new Item("four", "https://images.unsplash.com/photo-1431057499046-ecd6e0f36ebe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cow", false, false, todayString),
+    new Item("five", "https://images.unsplash.com/photo-1429341565469-c014916dc816?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60", "#rabbit", false, false, todayString),
+    new Item("six", "https://images.unsplash.com/photo-1457599227512-c157ba17f37a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bear", false, false, todayString),
+    new Item("seven", "https://images.unsplash.com/photo-1460380547286-0da8aead0d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bird", false, false, todayString),
+    new Item("eight", "https://images.unsplash.com/photo-1526505262320-81542978f63b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#pig", false, false, todayString),
+    new Item("nine", "https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#fish", false, false, todayString),
+    new Item("ten", "https://images.unsplash.com/photo-1554900773-632f4c042da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#elephant", false, false, todayString)
 ];
 
 export default function Album() {
     const classes = useStyles();
 
-    const [open, setOpen] = React.useState(null);
-    const handleOpen = (item) => {
+    const [modalItem, setModalItem] = React.useState(null);
+    const handleOpenModal = (item) => {
         item.zoomed = true;
-        setOpen(item);
+        setModalItem(item);
     };
-    const handleClose = (item) => {
+    const handleCloseModal = (item) => {
         item.zoomed = false;
-        setOpen(null);
+        setModalItem(null);
     };
 
-    const [favorite, setFavorite] = React.useState(false);
-    const handleFavorite = (item) => {
-        console.log(item.title);
-        console.log(item.favorite);
-        if (favorite) {
-            item.favorite = false;
-            setFavorite(false);
-        } else {
-            item.favorite = true;
-            setFavorite(true);
-        }
+    const [favoriteItem, setFavoriteItem] = React.useState(null);
+    const handleCheckFavorite = (item) => {
+        (item.favorite) ? item.favorite = false : item.favorite = true;
+        (favoriteItem == item) ? setFavoriteItem(null) : setFavoriteItem(item);
     };
 
     const [cards, setCards] = React.useState(initialCards);
@@ -160,7 +162,7 @@ export default function Album() {
                         {cards.map((item) => (
                             <Grid item key={item} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
-                                    <CardActionArea onClick={() => handleOpen(item)}>
+                                    <CardActionArea onClick={() => handleOpenModal(item)}>
                                         <CardMedia
                                             className={classes.cardMedia}
                                             image={item.url}
@@ -171,10 +173,14 @@ export default function Album() {
                                         <Typography gutterBottom variant="h5" component="h2">
                                             {item.title}
                                         </Typography>
-                                        <Typography>
+                                        <Typography gutterBottom variant="h6" component="h3" style={{color: blue[500]}}>
                                             {item.tag}
                                         </Typography>
-                                        <IconButton aria-label="add to favorites" onClick={() => handleFavorite(item)}>
+                                        <Typography gutterBottom variant="h7" component="h5" style={{color: grey[500]}}>
+                                            {item.cratedDate}
+                                        </Typography>
+                                        <IconButton aria-label="add to favorites"
+                                                    onClick={() => handleCheckFavorite(item)}>
                                             {item.favorite ? <FavoriteIcon style={{color: pink[500]}}/> :
                                                 <FavoriteIcon/>}
                                         </IconButton>
@@ -185,26 +191,26 @@ export default function Album() {
                                 </Card>
                             </Grid>
                         ))}
-                        {open ?
-                            <Modal
-                                aria-labelledby="transition-modal-title"
-                                aria-describedby="transition-modal-description"
-                                className={classes.modal}
-                                open={open.zoomed}
-                                onClose={() => handleClose(open)}
-                                closeAfterTransition
-                                BackdropComponent={Backdrop}
-                                BackdropProps={{timeout: 500}}
-                            >
-                                <Fade in={open.zoomed}>
-                                    <img
-                                        src={open.url}
-                                        alt={open.title}
-                                    />
-                                </Fade>
-                            </Modal>
-                            : <br/>}
                     </Grid>
+                    {modalItem ?
+                        <Modal
+                            aria-labelledby="transition-modal-title"
+                            aria-describedby="transition-modal-description"
+                            className={classes.modal}
+                            open={modalItem.zoomed}
+                            onClose={() => handleCloseModal(modalItem)}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{timeout: 500}}
+                        >
+                            <Fade in={modalItem.zoomed}>
+                                <img
+                                    src={modalItem.url}
+                                    alt={modalItem.title}
+                                />
+                            </Fade>
+                        </Modal>
+                        : <br/>}
                 </Container>
             </main>
             <footer className={classes.footer}>
