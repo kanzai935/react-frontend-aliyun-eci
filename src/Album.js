@@ -78,41 +78,52 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 class Item {
-    constructor(title, url, tag, favorite){
+    constructor(title, url, tag, favorite, zoomed) {
         this.title = title;
         this.url = url;
         this.tag = tag;
         this.favorite = favorite;
+        this.zoomed = zoomed;
     }
 }
 
 const initialCards = [
-    new Item("one", "https://images.unsplash.com/photo-1595777480569-8e542c4f904c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80", "#dog", false),
-    new Item("two", "https://images.unsplash.com/photo-1542117991-205f1f56bd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cat", false),
-    new Item("three", "https://images.unsplash.com/photo-1505896202-4fe971e982fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#lion", false),
-    new Item("four", "https://images.unsplash.com/photo-1431057499046-ecd6e0f36ebe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cow", false),
-    new Item("five", "https://images.unsplash.com/photo-1429341565469-c014916dc816?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60", "#rabbit", false),
-    new Item("six", "https://images.unsplash.com/photo-1457599227512-c157ba17f37a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bear", false),
-    new Item("seven", "https://images.unsplash.com/photo-1460380547286-0da8aead0d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bird", false),
-    new Item("eight", "https://images.unsplash.com/photo-1526505262320-81542978f63b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#pig", false),
-    new Item("nine", "https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#fish", false),
-    new Item("ten", "https://images.unsplash.com/photo-1554900773-632f4c042da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#elephant", false)
+    new Item("one", "https://images.unsplash.com/photo-1595777480569-8e542c4f904c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#dog", false, false),
+    new Item("two", "https://images.unsplash.com/photo-1542117991-205f1f56bd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cat", false, false),
+    new Item("three", "https://images.unsplash.com/photo-1505896202-4fe971e982fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#lion", false, false),
+    new Item("four", "https://images.unsplash.com/photo-1431057499046-ecd6e0f36ebe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cow", false, false),
+    new Item("five", "https://images.unsplash.com/photo-1429341565469-c014916dc816?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60", "#rabbit", false, false),
+    new Item("six", "https://images.unsplash.com/photo-1457599227512-c157ba17f37a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bear", false, false),
+    new Item("seven", "https://images.unsplash.com/photo-1460380547286-0da8aead0d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bird", false, false),
+    new Item("eight", "https://images.unsplash.com/photo-1526505262320-81542978f63b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#pig", false, false),
+    new Item("nine", "https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#fish", false, false),
+    new Item("ten", "https://images.unsplash.com/photo-1554900773-632f4c042da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#elephant", false, false)
 ];
 
 export default function Album() {
     const classes = useStyles();
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-        setOpen(true);
+    const [open, setOpen] = React.useState(null);
+    const handleOpen = (item) => {
+        item.zoomed = true;
+        setOpen(item);
     };
-    const handleClose = () => {
-        setOpen(false);
+    const handleClose = (item) => {
+        item.zoomed = false;
+        setOpen(null);
     };
 
     const [favorite, setFavorite] = React.useState(false);
-    const handleFavorite = () => {
-        (favorite) ? setFavorite(false) : setFavorite(true);
+    const handleFavorite = (item) => {
+        console.log(item.title);
+        console.log(item.favorite);
+        if (favorite) {
+            item.favorite = false;
+            setFavorite(false);
+        } else {
+            item.favorite = true;
+            setFavorite(true);
+        }
     };
 
     const [cards, setCards] = React.useState(initialCards);
@@ -146,50 +157,53 @@ export default function Album() {
                 </div>
                 <Container className={classes.cardGrid} maxWidth="lg">
                     <Grid container spacing={4}>
-                        {cards.map((card) => (
-                            <Grid item key={card} xs={12} sm={6} md={4}>
+                        {cards.map((item) => (
+                            <Grid item key={item} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
-                                    <CardActionArea onClick={handleOpen}>
+                                    <CardActionArea onClick={() => handleOpen(item)}>
                                         <CardMedia
                                             className={classes.cardMedia}
-                                            image={card.url}
-                                            title={card.title}
+                                            image={item.url}
+                                            title={item.title}
                                         />
                                     </CardActionArea>
-                                    <Modal
-                                        aria-labelledby="transition-modal-title"
-                                        aria-describedby="transition-modal-description"
-                                        className={classes.modal}
-                                        open={open}
-                                        onClose={handleClose}
-                                        closeAfterTransition
-                                        BackdropComponent={Backdrop}
-                                        BackdropProps={{timeout: 500}}
-                                    >
-                                        <Fade in={open}>
-                                            <img
-                                                src={card.url}
-                                                alt={card.title}
-                                            />
-                                        </Fade>
-                                    </Modal>
                                     <CardContent className={classes.cardContent}>
                                         <Typography gutterBottom variant="h5" component="h2">
-                                            {card.title}
+                                            {item.title}
                                         </Typography>
                                         <Typography>
-                                            {card.tag}
+                                            {item.tag}
                                         </Typography>
-                                        <IconButton aria-label="add to favorites" onClick={handleFavorite}>
-                                            {favorite ? <FavoriteIcon style={{color: pink[500]}}/> : <FavoriteIcon/>}
+                                        <IconButton aria-label="add to favorites" onClick={() => handleFavorite(item)}>
+                                            {item.favorite ? <FavoriteIcon style={{color: pink[500]}}/> :
+                                                <FavoriteIcon/>}
                                         </IconButton>
-                                        <IconButton aria-label="delete image" onClick={() => handleRemove(card)}>
+                                        <IconButton aria-label="delete image" onClick={() => handleRemove(item)}>
                                             <DeleteIcon/>
                                         </IconButton>
                                     </CardContent>
                                 </Card>
                             </Grid>
                         ))}
+                        {open ?
+                            <Modal
+                                aria-labelledby="transition-modal-title"
+                                aria-describedby="transition-modal-description"
+                                className={classes.modal}
+                                open={open.zoomed}
+                                onClose={() => handleClose(open)}
+                                closeAfterTransition
+                                BackdropComponent={Backdrop}
+                                BackdropProps={{timeout: 500}}
+                            >
+                                <Fade in={open.zoomed}>
+                                    <img
+                                        src={open.url}
+                                        alt={open.title}
+                                    />
+                                </Fade>
+                            </Modal>
+                            : <br/>}
                     </Grid>
                 </Container>
             </main>

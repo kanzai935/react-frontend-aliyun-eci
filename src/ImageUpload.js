@@ -62,22 +62,22 @@ const styles = theme => ({
 
 class ImageUploadCard extends React.Component {
     state = {
-        mainState: "initial", // initial, uploaded
+        mainState: "initial",
         imageUploaded: 0,
         selectedFile: null
     };
 
     handleUploadClick = event => {
-        var file = event.target.files[0];
-        var reader = new FileReader();
-        var url = reader.readAsDataURL(file);
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        const url = reader.readAsDataURL(file);
 
         reader.onloadend = function (e) {
             this.setState({
                 selectedFile: [reader.result]
             });
         }.bind(this);
-        console.log(url); // Would see a path?
+        console.log(url);
 
         this.setState({
             mainState: "uploaded",
@@ -88,7 +88,6 @@ class ImageUploadCard extends React.Component {
 
     renderInitialState() {
         const {classes, theme} = this.props;
-        const {value} = this.state;
 
         return (
             <React.Fragment>
@@ -123,6 +122,7 @@ class ImageUploadCard extends React.Component {
                         width="100%"
                         className={classes.media}
                         src={this.state.selectedFile}
+                        alt="title"
                     />
                 </CardActionArea>
                 <CardActions>
