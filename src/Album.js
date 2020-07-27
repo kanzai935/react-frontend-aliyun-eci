@@ -1,8 +1,6 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -18,6 +16,9 @@ import ImageUpload from "./ImageUpload";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 function Copyright() {
     return (
@@ -148,6 +149,12 @@ export default function Album() {
                                         <Typography>
                                             This is a media card. You can use this section to describe the content.
                                         </Typography>
+                                        <IconButton aria-label="add to favorites">
+                                            <FavoriteIcon/>
+                                        </IconButton>
+                                        <IconButton aria-label="delete image">
+                                            <DeleteIcon />
+                                        </IconButton>
                                     </CardContent>
                                 </Card>
                             </Grid>
