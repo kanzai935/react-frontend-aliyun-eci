@@ -1,21 +1,16 @@
-// imports the React Javascript Library
 import React from "react";
-//Card
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-
 import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
-
 import red from "@material-ui/core/colors/red";
 import blue from "@material-ui/core/colors/blue";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-// Search
-//Tabs
 import {withStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
     root: {
@@ -23,7 +18,10 @@ const styles = theme => ({
         width: 500,
         display: "flex",
         justifyContent: "center",
-        alignItems: "flex-end"
+        alignItems: "flex-end",
+        textField: {
+            align: "left"
+        }
     },
     icon: {
         margin: theme.spacing.unit * 2
@@ -128,15 +126,27 @@ class ImageUploadCard extends React.Component {
                         alt="uploaded image"
                     />
                 </CardActionArea>
-                <div className={classes.heroButtons}>
-                    <Grid container spacing={2} justify="center">
-                        <Grid item>
-                            <Button variant="contained" color="primary">
-                                アップロード
-                            </Button>
+                <CardActions>
+                    <CardContent>
+                        <form className={classes.textField} noValidate autoComplete="off">
+                            <TextField id="outlined-basic" label="タイトル" variant="outlined" />
+                            <TextField
+                                id="standard-full-width"
+                                label="タグ"
+                                fullWidth
+                                margin="normal"
+                            />
+                        </form>
+                        <br/>
+                        <Grid container spacing={2} justify="center">
+                            <Grid item>
+                                <Button variant="contained" color="primary">
+                                    アップロード
+                                </Button>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </div>
+                    </CardContent>
+                </CardActions>
             </React.Fragment>
         );
     }

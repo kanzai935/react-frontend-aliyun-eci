@@ -79,7 +79,7 @@ export default function Album() {
             <main>
                 {/* Hero unit */}
                 <div className={classes.heroContent}>
-                    <Container maxWidth="sm">
+                    <Container maxWidth="xl">
                         <Typography component="h3" variant="h3" align="center" color="textPrimary" gutterBottom>
                             思い出をここに。
                         </Typography>
