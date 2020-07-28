@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Card from '@material-ui/core/Card';
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+/*** ダミーデータ ***/
 const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
@@ -86,16 +87,17 @@ const minutes = today.getMinutes();
 const todayString = year + "/" + month + "/" + day + " " + hour + ":" + minutes
 
 class Item {
-    constructor(title, url, tag, favorite, zoomed, cratedDate) {
+    constructor(title, url, tag, favorite, zoomed, createdDate) {
         this.title = title;
         this.url = url;
         this.tag = tag;
         this.favorite = favorite;
         this.zoomed = zoomed;
-        this.cratedDate = cratedDate;
+        this.createdDate = createdDate;
     }
 }
 
+/*** ダミーデータ ***/
 const initialCards = [
     new Item("one", "https://images.unsplash.com/photo-1595777480569-8e542c4f904c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#dog", false, false, todayString),
     new Item("two", "https://images.unsplash.com/photo-1542117991-205f1f56bd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cat", false, false, todayString),
@@ -109,10 +111,12 @@ const initialCards = [
     new Item("ten", "https://images.unsplash.com/photo-1554900773-632f4c042da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#elephant", false, false, todayString)
 ];
 
+
+
 export default function Album() {
     const classes = useStyles();
 
-    const [modalItem, setModalItem] = React.useState(null);
+    const [modalItem, setModalItem] = useState(null);
     const handleOpenModal = (item) => {
         item.zoomed = true;
         setModalItem(item);
@@ -122,13 +126,13 @@ export default function Album() {
         setModalItem(null);
     };
 
-    const [favoriteItem, setFavoriteItem] = React.useState(null);
+    const [favoriteItem, setFavoriteItem] = useState(null);
     const handleCheckFavorite = (item) => {
         (item.favorite) ? item.favorite = false : item.favorite = true;
         (favoriteItem == item) ? setFavoriteItem(null) : setFavoriteItem(item);
     };
 
-    const [cards, setCards] = React.useState(initialCards);
+    const [cards, setCards] = useState(initialCards);
     const handleRemove = (item) => {
         const newCards = cards.filter((card) => card !== item);
         setCards(newCards);
@@ -177,7 +181,7 @@ export default function Album() {
                                             {item.tag}
                                         </Typography>
                                         <Typography gutterBottom variant="h7" component="h5" style={{color: grey[500]}}>
-                                            {item.cratedDate}
+                                            {item.createdDate}
                                         </Typography>
                                         <IconButton aria-label="add to favorites"
                                                     onClick={() => handleCheckFavorite(item)}>
