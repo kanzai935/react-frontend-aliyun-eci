@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Card from '@material-ui/core/Card';
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -77,44 +77,24 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-/*** ダミーデータ ***/
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth() + 1;
-const day = today.getDate();
-const hour = today.getHours();
-const minutes = today.getMinutes();
-const todayString = year + "/" + month + "/" + day + " " + hour + ":" + minutes
+function fetchItems() {
+    /*** ダミーデータ ***/
+    const initialItemsJsonDummy = '{"Items":[{"item":{"title":"one","url":"https://images.unsplash.com/photo-1595777480569-8e542c4f904c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#dog","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"two","url":"https://images.unsplash.com/photo-1542117991-205f1f56bd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#cat","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"three","url":"https://images.unsplash.com/photo-1505896202-4fe971e982fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#lion","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"four","url":"https://images.unsplash.com/photo-1431057499046-ecd6e0f36ebe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#cow","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"five","url":"https://images.unsplash.com/photo-1429341565469-c014916dc816?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60","tag":"#rabbit","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"six","url":"https://images.unsplash.com/photo-1457599227512-c157ba17f37a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#bear","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"seven","url":"https://images.unsplash.com/photo-1460380547286-0da8aead0d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#bird","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"eight","url":"https://images.unsplash.com/photo-1526505262320-81542978f63b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#pig","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"nine","url":"https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#fish","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"ten","url":"https://images.unsplash.com/photo-1554900773-632f4c042da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#elephant","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}}]}';
+    const initialItems = JSON.parse(initialItemsJsonDummy).Items;
 
-class Item {
-    constructor(title, url, tag, favorite, zoomed, createdDate) {
-        this.title = title;
-        this.url = url;
-        this.tag = tag;
-        this.favorite = favorite;
-        this.zoomed = zoomed;
-        this.createdDate = createdDate;
-    }
+    /*** API ***/
+
+    const items = [];
+    initialItems.forEach(item => {
+        items.push(item.item);
+    });
+    return items;
 }
-
-/*** ダミーデータ ***/
-const initialCards = [
-    new Item("one", "https://images.unsplash.com/photo-1595777480569-8e542c4f904c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#dog", false, false, todayString),
-    new Item("two", "https://images.unsplash.com/photo-1542117991-205f1f56bd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cat", false, false, todayString),
-    new Item("three", "https://images.unsplash.com/photo-1505896202-4fe971e982fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#lion", false, false, todayString),
-    new Item("four", "https://images.unsplash.com/photo-1431057499046-ecd6e0f36ebe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#cow", false, false, todayString),
-    new Item("five", "https://images.unsplash.com/photo-1429341565469-c014916dc816?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60", "#rabbit", false, false, todayString),
-    new Item("six", "https://images.unsplash.com/photo-1457599227512-c157ba17f37a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bear", false, false, todayString),
-    new Item("seven", "https://images.unsplash.com/photo-1460380547286-0da8aead0d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#bird", false, false, todayString),
-    new Item("eight", "https://images.unsplash.com/photo-1526505262320-81542978f63b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#pig", false, false, todayString),
-    new Item("nine", "https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#fish", false, false, todayString),
-    new Item("ten", "https://images.unsplash.com/photo-1554900773-632f4c042da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", "#elephant", false, false, todayString)
-];
-
-
 
 export default function Album() {
     const classes = useStyles();
+
+    const items = fetchItems();
 
     const [modalItem, setModalItem] = useState(null);
     const handleOpenModal = (item) => {
@@ -132,7 +112,7 @@ export default function Album() {
         (favoriteItem == item) ? setFavoriteItem(null) : setFavoriteItem(item);
     };
 
-    const [cards, setCards] = useState(initialCards);
+    const [cards, setCards] = useState(items);
     const handleRemove = (item) => {
         const newCards = cards.filter((card) => card !== item);
         setCards(newCards);
