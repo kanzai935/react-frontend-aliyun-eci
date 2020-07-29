@@ -94,7 +94,7 @@ function fetchItems() {
 export default function Album() {
     const classes = useStyles();
 
-    const items = fetchItems();
+    const initialItems = fetchItems();
 
     const [modalItem, setModalItem] = useState(null);
     const handleOpenModal = (item) => {
@@ -112,10 +112,10 @@ export default function Album() {
         (favoriteItem == item) ? setFavoriteItem(null) : setFavoriteItem(item);
     };
 
-    const [cards, setCards] = useState(items);
-    const handleRemove = (item) => {
-        const newCards = cards.filter((card) => card !== item);
-        setCards(newCards);
+    const [items, setItems] = useState(initialItems);
+    const handleRemove = (removedItem) => {
+        const newItems = items.filter((item) => item !== removedItem);
+        setItems(newItems);
     };
 
     return (
@@ -143,7 +143,7 @@ export default function Album() {
                 </div>
                 <Container className={classes.cardGrid} maxWidth="lg">
                     <Grid container spacing={4}>
-                        {cards.map((item) => (
+                        {items.map((item) => (
                             <Grid item key={item} xs={12} sm={6} md={4}>
                                 <Card className={classes.card}>
                                     <CardActionArea onClick={() => handleOpenModal(item)}>
