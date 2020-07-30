@@ -24,10 +24,10 @@ const styles = theme => ({
         }
     },
     icon: {
-        margin: theme.spacing.unit * 2
+        margin: theme.spacing(2)
     },
     iconHover: {
-        margin: theme.spacing.unit * 2,
+        margin: theme.spacing(2),
         "&:hover": {
             color: red[800]
         }
@@ -51,11 +51,11 @@ const styles = theme => ({
         margin: 10
     },
     secondaryButton: {
-        color: "gray",
+        color: "grey",
         margin: 10
     },
     typography: {
-        margin: theme.spacing.unit * 2,
+        margin: theme.spacing(2),
         backgroundColor: "default"
     }
 });

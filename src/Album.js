@@ -81,9 +81,7 @@ function fetchItems() {
     /*** ダミーデータ ***/
     const initialItemsJsonDummy = '{"Items":[{"item":{"title":"one","url":"https://images.unsplash.com/photo-1595777480569-8e542c4f904c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#dog","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"two","url":"https://images.unsplash.com/photo-1542117991-205f1f56bd14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#cat","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"three","url":"https://images.unsplash.com/photo-1505896202-4fe971e982fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#lion","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"four","url":"https://images.unsplash.com/photo-1431057499046-ecd6e0f36ebe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#cow","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"five","url":"https://images.unsplash.com/photo-1429341565469-c014916dc816?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60","tag":"#rabbit","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"six","url":"https://images.unsplash.com/photo-1457599227512-c157ba17f37a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#bear","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"seven","url":"https://images.unsplash.com/photo-1460380547286-0da8aead0d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#bird","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"eight","url":"https://images.unsplash.com/photo-1526505262320-81542978f63b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#pig","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"nine","url":"https://images.unsplash.com/photo-1523908511403-7fc7b25592f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#fish","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}},{"item":{"title":"ten","url":"https://images.unsplash.com/photo-1554900773-632f4c042da8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60","tag":"#elephant","favorite":false,"zoomed":false,"createdDate":"2020/07/29 12:30"}}]}';
     const initialItems = JSON.parse(initialItemsJsonDummy).Items;
-
     /*** API ***/
-
     const items = [];
     initialItems.forEach(item => {
         items.push(item.item);
@@ -109,13 +107,15 @@ export default function Album() {
     const [favoriteItem, setFavoriteItem] = useState(null);
     const handleCheckFavorite = (item) => {
         (item.favorite) ? item.favorite = false : item.favorite = true;
-        (favoriteItem == item) ? setFavoriteItem(null) : setFavoriteItem(item);
+        (favoriteItem === item) ? setFavoriteItem(null) : setFavoriteItem(item);
+        /*** API ***/
     };
 
     const [items, setItems] = useState(initialItems);
     const handleRemove = (removedItem) => {
         const newItems = items.filter((item) => item !== removedItem);
         setItems(newItems);
+        /*** API ***/
     };
 
     return (
@@ -157,10 +157,12 @@ export default function Album() {
                                         <Typography gutterBottom variant="h5" component="h2">
                                             {item.title}
                                         </Typography>
-                                        <Typography gutterBottom variant="h6" component="h3" style={{color: blue[500]}}>
+                                        <Typography gutterBottom variant="h6" component="h3"
+                                                    style={{color: blue[500]}}>
                                             {item.tag}
                                         </Typography>
-                                        <Typography gutterBottom variant="h7" component="h5" style={{color: grey[500]}}>
+                                        <Typography gutterBottom variant="caption" component="h5"
+                                                    style={{color: grey[500]}}>
                                             {item.createdDate}
                                         </Typography>
                                         <IconButton aria-label="add to favorites"
@@ -171,6 +173,7 @@ export default function Album() {
                                         <IconButton aria-label="delete image" onClick={() => handleRemove(item)}>
                                             <DeleteIcon/>
                                         </IconButton>
+                                        {/*</form>*/}
                                     </CardContent>
                                 </Card>
                             </Grid>
